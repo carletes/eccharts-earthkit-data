@@ -1,0 +1,8 @@
+[project]
+name = "eccharts-earthkit-data"
+version = "0.1.0"
+description = "Sandbox to test usage of `earthkit-data` in eccharts"
+requires-python = ">=3.13"
+dependencies = [
+    "earthkit-data==0.14.1",
+]

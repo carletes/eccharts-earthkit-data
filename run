@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+here=$(cd "$(dirname "$0")" && pwd)
+
+# Ensure we use the eccodes library from the system, just like what we do in
+# eccharts services.
+env \
+  ECCODES_PYTHON_TRACE_LIB_SEARCH="1" \
+  ECCODES_PYTHON_USE_FINDLIBS="${ECCODES_PYTHON_USE_FINDLIBS:-1}" \
+  python "${here}/main.py" "$@"
