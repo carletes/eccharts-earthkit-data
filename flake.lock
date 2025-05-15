@@ -10,11 +10,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1721491303,
-        "narHash": "sha256-qlFWZQQ73a8w8IBJ8aQB0FibdyuStWvYsX8bnVnkTOY=",
+        "lastModified": 1747303670,
+        "narHash": "sha256-io0huiTp71YEDZ3hoQulisjtG/v5x/i25FNX2MEJFdY=",
         "owner": "carletes",
         "repo": "ecmwf-nixpkgs",
-        "rev": "7d2db84f883bd90ca9a4163f351bc707212ff08a",
+        "rev": "3875df683db5a845c63e1d6d658a1719aa5cd533",
         "type": "github"
       },
       "original": {

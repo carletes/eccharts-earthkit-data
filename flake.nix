@@ -21,17 +21,25 @@
               ecmwf.overlays.default
             ];
           };
+          eccodes = (pkgs.eccodes.overrideAttrs (prev: rec {
+            version = "2.41.0";
+            src = (prev.src.override {
+              rev = version;
+              sha256 = "sha256-5MwEeH6JQTeTSfe9xPAB2BMDT102ZM+rDaVaBggV18s=";
+            });
+          }));
+          libraryPath = with pkgs; lib.makeLibraryPath [
+            # Numpy needs to load the zlib shared library.
+            zlib
+
+            # Package `eccodes-python` needs to load the eccodes share library.
+            eccodes
+          ];
         in
         {
           devShells.default = pkgs.mkShell {
-            buildInputs = with pkgs; [
-              (eccodes.overrideAttrs (prev: rec {
-                version = "2.41.0";
-                src = (prev.src.override {
-                  rev = version;
-                  sha256 = "sha256-QjQPf+7XLr/vX+01ZLFx5WNwh2C0MxhKz7Gt4auPUz0=";
-                });
-              }))
+            buildInputs = [
+              eccodes
             ];
 
             shellHook = ''
@@ -41,6 +49,8 @@
                 touch .venv/.done
               fi
               . ./.venv/bin/activate
+              export LD_LIBRARY_PATH="${libraryPath}"
+              export DYLD_LIBRARY_PATH="${libraryPath}"
             '';
           };
         }
