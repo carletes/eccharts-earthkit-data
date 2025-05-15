@@ -129,7 +129,7 @@ def main():
         type=int,
         metavar="N",
         help="number of times to call mock service (default: %(default)s)",
-        default=1000,
+        default=100,
     )
     args = p.parse_args()
 
