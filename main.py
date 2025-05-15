@@ -100,6 +100,10 @@ def _retrieve(request, results, index):
 
 
 def write(values, metadata):
+    """Write a GRIB field to a file on disk in the same way as we do it on
+    eccharts.
+
+    """
     fd, fname = tempfile.mkstemp(prefix="eccharts-earthikit-data-", suffix=".grib")
     os.close(fd)
 
@@ -110,6 +114,13 @@ def write(values, metadata):
 
 
 def run_macro():
+    """Run a simple computation in the same way as we would do in eccharts:
+
+    * Fetch some data.
+    * Compute.
+    * Write the result to disk.
+
+    """
     grib_source = Path("tp.grib").absolute().as_uri()
 
     (step_0, _), (step_1, metadata) = retrieve(
