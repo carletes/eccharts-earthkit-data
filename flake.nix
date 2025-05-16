@@ -40,6 +40,8 @@
           devShells.default = pkgs.mkShell {
             buildInputs = [
               eccodes
+              pkgs.python313
+              pkgs.uv
             ];
 
             shellHook = ''
