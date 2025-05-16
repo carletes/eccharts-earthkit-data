@@ -127,9 +127,21 @@ def write(values, metadata):
     os.close(fd)
 
     LOG.debug("Writing results to %s", fname)
-    with open(fname, "wb") as f:
-        ar = ArrayField(values, metadata)
-        ar.write(f)
+
+    ar = ArrayField(values, metadata)
+    ar.to_target("file", fname)
+
+    # # alternative 1
+    # with earthkit.data.create_target("file", fname) as t:
+    #     ar = ArrayField(values, metadata)
+    #     t.write(ar)
+
+    # alternative 2
+    # with open(fname, "wb") as f:
+    #     with earthkit.data.create_target("file", f) as t:
+    #         ar = ArrayField(values, metadata)
+    #         t.write(ar)
+    
 
 
 def run_macro():
@@ -166,10 +178,10 @@ def main():
     if args.iterations <= 0:
         p.error("Positive number of iterations needed")
 
-    # logging.basicConfig(
-    #     format="$(asctime)s %(threadName)s %(levelname)s %(name)s %(message)s",
-    #     level=logging.DEBUG,
-    # )
+    logging.basicConfig(
+        format="$(asctime)s %(threadName)s %(levelname)s %(name)s %(message)s",
+        level=logging.DEBUG,
+    )
 
     init_earthkit_data()
 
