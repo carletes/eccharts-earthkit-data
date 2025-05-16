@@ -18,8 +18,8 @@ def init_earthkit_data():
     """Configure `earthkit-data` as it's used in eccharts services."""
     earthkit.data.settings.set(
         cache_policy="off",
-        grib_field_policy="persistent",
-        grib_handle_policy="cache",
+        grib_field_policy="temporary",
+        grib_handle_policy="persistent",
         grib_handle_cache_size=1,
         number_of_download_threads=5,
         reader_type_check_bytes=4096,
@@ -35,7 +35,8 @@ def retrieve(*requests):
     results_i = []
     threads = []
     for i, req in enumerate(requests):
-        t = threading.Thread(target=_retrieve, args=(req, results_i, i))
+        req, meta = req
+        t = threading.Thread(target=_retrieve, args=(req, results_i, i, meta))
         t.start()
         threads.append(t)
     for t in threads:
@@ -57,7 +58,7 @@ def retrieve(*requests):
 LOG = logging.getLogger()
 
 
-def _retrieve(request, results, index):
+def _retrieve(request, results, index, extract_meta):
     try:
         url = request["url"]
         offset = request["offset"]
@@ -84,16 +85,34 @@ def _retrieve(request, results, index):
             raise Exception(
                 f"Expected one GRIB message(s), got instead {len(fields)}: {fields}"
             )
-        field = fields[0]
 
-        arr = field.to_numpy(flatten=True)
+        if extract_meta:
+            field = fields[0]
+            arr = field.to_numpy(flatten=True)
+            meta = field.metadata().override()
+            field = None
+            # return field.to_numpy(flatten=True), field.metadata().override()
+            results.append((index, (arr, meta)))
+        else:
+            results.append((index, (fields[0].to_numpy(flatten=True), None)))
+            
+            
+        # field = fields[0]
 
-        # XXX We will call `override()` here to save some memory.
-        meta = field.metadata().override()
-        # XXX This was the original attempt.
-        # meta = field.metadata()
+        # # import numpy as np
+        # # arr = np.ones(6599680)
+        
+        # arr = field.to_numpy(flatten=True)
 
-        results.append((index, (arr, meta)))
+        # # XXX We will call `override()` here to save some memory.
+        # meta = field.metadata().override()
+        # # meta = None
+        # field = None
+        # fields = None
+        # # XXX This was the original attempt.
+        # # meta = field.metadata()
+
+        # results.append((index, (arr, meta)))
     except Exception as exc:
         LOG.error("Error processing %s: %s", request, exc, exc_info=True)
         results.append((index, exc))
@@ -124,8 +143,8 @@ def run_macro():
     grib_source = Path("tp.grib").absolute().as_uri()
 
     (step_0, _), (step_1, metadata) = retrieve(
-        {"url": grib_source, "offset": 0, "length": 13204588},
-        {"url": grib_source, "offset": 13204588, "length": 13204588},
+        ({"url": grib_source, "offset": 0, "length": 13204588}, False),
+        ({"url": grib_source, "offset": 13204588, "length": 13204588}, True),
     )
 
     result = step_1 - step_0
@@ -147,10 +166,10 @@ def main():
     if args.iterations <= 0:
         p.error("Positive number of iterations needed")
 
-    logging.basicConfig(
-        format="$(asctime)s %(threadName)s %(levelname)s %(name)s %(message)s",
-        level=logging.DEBUG,
-    )
+    # logging.basicConfig(
+    #     format="$(asctime)s %(threadName)s %(levelname)s %(name)s %(message)s",
+    #     level=logging.DEBUG,
+    # )
 
     init_earthkit_data()
 
