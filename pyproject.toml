@@ -5,4 +5,5 @@ description = "Sandbox to test usage of `earthkit-data` in eccharts"
 requires-python = ">=3.13"
 dependencies = [
     "earthkit-data==0.14.1",
+    "memray>=1.17.2",
 ]
