@@ -55,8 +55,8 @@ def main():
     LOG.info("tp shape: %s", tp.shape)
 
     # Regrid to [0.1, 0.1].
-    out_grid = [0.1, 0.1]
-    tp_regridded = interpolate(tp, in_grid=in_grid, out_grid={"grid": out_grid})
+    out_grid = {"grid": [0.1, 0.1], "type": "regular_ll"}
+    tp_regridded = interpolate(tp, in_grid=in_grid, out_grid=out_grid)
     LOG.info("tp shape (regridded): %s", tp_regridded.shape)
 
     # Save regridded data.
@@ -64,9 +64,7 @@ def main():
     # XXX Is this the right way to write to a GRIB file?
     with earthkit.data.create_target("file", "tp-regridded.grib") as t:
         # XXX Is this the right way to override the grid in the metadata?
-        metadata = metadata.override(
-            gridspec=metadata.gridspec.override(grid=out_grid, type="regular_ll")
-        )
+        metadata = metadata.override(gridspec=metadata.gridspec.override(**out_grid))
         ar = earthkit.data.ArrayField(tp_regridded, metadata)
         t.write(ar)
 
