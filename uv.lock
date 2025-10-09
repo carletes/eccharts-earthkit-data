@@ -167,7 +167,7 @@ wheels = [
 
 [[package]]
 name = "earthkit-data"
-version = "0.14.1"
+version = "0.17.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "cfgrib" },
@@ -190,9 +190,9 @@ dependencies = [
     { name = "tqdm" },
     { name = "xarray" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b5/48/76adccdb36312c47d55834e6a59456a6b6aad5bd71d0fea7465c03c4042a/earthkit_data-0.14.1.tar.gz", hash = "sha256:d61d8385ab7fea7cd2829faf229a573954d846f5cdd424d2a3ad41b08a1bf997", size = 4850863, upload-time = "2025-05-09T05:06:42.566Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/04/70/489904ff7f8bebcf21470593d317dba8592b73c1f472ef35a0db0e5459bf/earthkit_data-0.17.0.tar.gz", hash = "sha256:8703061193845bc075564a62632386e65e86966901b6ebdfd73aebb334fee6cf", size = 5548772, upload-time = "2025-10-01T17:09:18.198Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/51/02/94a9881ffd6e3a0d27e7e07f4101a24a9556f3284384719e63159a1df5a2/earthkit_data-0.14.1-py3-none-any.whl", hash = "sha256:0e49bcee277e8f4677082ad2bd198b293cb7de65c0863bb5a5d82864ff3011e0", size = 368823, upload-time = "2025-05-09T05:06:40.538Z" },
+    { url = "https://files.pythonhosted.org/packages/91/c4/2b97afb0e6ba75a611bd6e8262a3b72e6ed7726755b7556c9da1c6f3c9ec/earthkit_data-0.17.0-py3-none-any.whl", hash = "sha256:c7bbac24d3b0c5158c9dc4f091856613944cd970155291be5944c80466ebd508", size = 388147, upload-time = "2025-10-01T17:09:16.167Z" },
 ]
 
 [[package]]
@@ -209,14 +209,14 @@ wheels = [
 
 [[package]]
 name = "earthkit-utils"
-version = "0.0.1"
+version = "0.1.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "array-api-compat" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/51/d7/91ce33376f48a0dc5993008eebbb12415853fb87361ac849a834db505a35/earthkit_utils-0.0.1.tar.gz", hash = "sha256:8bb41d9b6c8cfc1e0d330cf9801183301e7febd03b6c87082ce3d52d129939e3", size = 19791, upload-time = "2025-04-04T16:00:49.79Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/06/50/8e4d6a75a11db4d6c86d5d921dfb3b89c71bc19231323f01c26fde449a43/earthkit_utils-0.1.2.tar.gz", hash = "sha256:f0e6059c6fc40cc0c7f76ac52e3725ed1b2d837e43f5218f946b2a7dc012ff82", size = 23716, upload-time = "2025-09-10T12:41:42.529Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/6e/9b/568d8e53ea6804084284015d79a757c11fa41f907b56c523c9e11a7ee679/earthkit_utils-0.0.1-py3-none-any.whl", hash = "sha256:1732ac37d9c4c97f56b733526052c047c49854438a7fc35ed775e2c204a7d825", size = 15431, upload-time = "2025-04-04T16:00:48.607Z" },
+    { url = "https://files.pythonhosted.org/packages/54/86/1ffe2e8af8dbfc2c691fe5653b109e2a587e5ab797a837cd5f7c86dd0dac/earthkit_utils-0.1.2-py3-none-any.whl", hash = "sha256:150cf68ce5228dadec1b50bc6f8ff0b68d69b702a4019056b3bd0149b1ed8236", size = 21458, upload-time = "2025-09-10T12:41:41.531Z" },
 ]
 
 [[package]]
@@ -230,7 +230,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "earthkit-data", specifier = "==0.14.1" },
+    { name = "earthkit-data", specifier = "==0.17.0" },
     { name = "memray", specifier = ">=1.17.2" },
 ]
 
